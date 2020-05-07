@@ -1,0 +1,71 @@
+﻿@model KooBooKMVC.ViewModels.RecipeListViewModel
+@{
+    ViewData["Title"] = "Liste des recettes";
+}
+
+<h1>Liste des recettes</h1>
+
+
+<table class="table" id="recipes">
+    @foreach (var recipe in Model.Recipes)
+    {
+        <tr>
+            <td>@recipe.Name</td>
+            <td>@recipe.Type</td>
+            <td>
+                <a class="btn btn-outline-primary"
+                   asp-controller="Recipes"
+                   asp-action="Detail"
+                   asp-route-recipeId="@recipe.Id">
+                   Détails
+                </a>
+            </td>
+            <td>
+                <a class="btn border-secondary"
+                   asp-controller="Recipes"
+                   asp-action="Edit"
+                   asp-route-recipeId="@recipe.Id">
+                    Editer
+                </a>
+            </td>
+            <td>
+                <button data-recipe-id="@recipe.Id" class="btn btn-outline-danger js-delete">Supprimer</button>
+
+            </td>
+        </tr>
+
+
+    }
+
+</table>
+
+<a class="btn btn-primary"
+   asp-controller="Recipes"
+   asp-action="Edit">
+    <i class="btn badge-primary">Ajouter</i>
+</a>
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#recipes").on("click",".js-delete", function () {
+                var button = $(this);
+
+                if (confirm("Êtes-vous certain de vouloir supprimer cette recette ?")) {
+                    $.ajax({
+                        url: "/api/recipes/" + button.attr("data-recipe-id"),
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+
+
+    </script>
+}

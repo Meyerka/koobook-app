@@ -1,0 +1,17 @@
+﻿@model KooBooKMVC.ViewModels.RecipeViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Detail pour @Model.Recipe.Name</h1>
+<p>@Model.Recipe.Type</p>
+
+<h2> Ingrédients </h2>
+@foreach (var component in Model.Recipe.RecipeComponents)
+{
+    <p>@component.Quantity @component.Unit @component.Ingredient.Name</p>
+}
+
+<h2>Instructions</h2>
+
+<p>@Model.Recipe.Instructions</p>
