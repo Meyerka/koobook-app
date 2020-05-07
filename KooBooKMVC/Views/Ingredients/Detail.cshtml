@@ -1,0 +1,18 @@
+﻿@model KooBooKMVC.ViewModels.IngredientViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>@Model.Ingredient.Name</h1>
+
+
+<table class="table">
+    <tr>
+        <td>@Model.Ingredient.Calories kCal</td>
+        <td>@Model.Ingredient.Carbohydrates g glucides</td>
+        <td>@Model.Ingredient.Fat g matière grasse</td>
+        <td>@Model.Ingredient.Proteins g protéines</td>
+    </tr>
+
+
+</table>

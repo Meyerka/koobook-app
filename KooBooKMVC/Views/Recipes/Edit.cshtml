@@ -1,0 +1,102 @@
+﻿@model Recipe
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@if (Model.Id > 0)
+{
+    <h1>Edition de @Model.Name</h1>
+}
+else
+{
+    <h1>Création de recette</h1>
+}
+
+<span class="fa fa-star checked" ></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+
+<form asp-controller="Recipes" asp-action="Edit" id="form" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name">Intitulé</label>
+        <input asp-for="Name" class="form-control" />
+
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Type">Type de recette</label>
+        <select class="form-control" asp-for="Type">
+            <option>Entrée</option>
+            <option>Plat</option>
+            <option>Dessert</option>
+            <option>Apéritif</option>
+            <option>Cocktail</option>
+        </select>
+        <span class="text-danger" asp-validation-for="Type"></span>
+    </div>
+
+    <h2> Ingrédients </h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Quantité</th>
+                <th scope="col">Unité</th>
+                <th scope="col">Ingrédient</th>
+            </tr>
+        </thead>
+
+        <tbody id="recipeComponentsContainer">
+            @Html.EditorFor(model => model.RecipeComponents)
+        </tbody>
+
+    </table>
+
+    <div class="col-md-4">
+        <input class="btn btn-default" type="button" id="btnAdd" value="Ajouter" />
+    </div>
+
+
+
+    <div class="form-group">
+        <label asp-for="Instructions"><h2>Instructions</h2></label>
+        <textarea class="form-control" style="height: 350px" asp-for="Instructions"></textarea>
+
+        <span class="text-danger" asp-validation-for="Instructions"></span>
+
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Valider</button>
+</form>
+
+@section scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $("#btnAdd").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Recipes/AddRecipeComponent',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#recipeComponentsContainer').html(partialView);
+                }
+            });
+        });
+    </script>
+
+
+
+}
+
+
+
+
