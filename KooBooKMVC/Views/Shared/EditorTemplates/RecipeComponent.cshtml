@@ -2,32 +2,34 @@
 @{
     ViewData["Title"] = "Edit";
 }
-    <tr class="table-light">
-              
-        <input type="hidden" asp-for="Id" />
-        <td>
-            <div class="form-group">
-                <input asp-for="Quantity" class="form-control" />
 
-                <span class="text-danger" asp-validation-for="Quantity"></span>
-            </div>
-        </td>
-        <td>
-            <div class="form-group">
-                <select class="form-control" asp-for="Unit">
-                    <option>g</option>
-                    <option>mL</option>
-                    <option>càc</option>
-                    <option>càs</option>
-                </select>
-                <span class="text-danger" asp-validation-for="Unit"></span>
-            </div>
-        </td>
-        <td>
-            <div class="form-group">
-                <input id="ingredient" class="form-control" asp-for="Ingredient.Name" />
-                <span class="text-danger" asp-validation-for="Ingredient.Name"></span>
-            </div>
-        </td>
 
-    </tr>
+<input type="hidden" asp-for="Id" />
+<tr class="table-light">
+
+    <td>
+        <div class="form-group">
+            <input asp-for="Quantity" class="form-control" />
+
+            <span class="text-danger" asp-validation-for="Quantity"></span>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <select class="form-control" asp-for="Unit">
+                <option>g</option>
+                <option>mL</option>
+                <option>càc</option>
+                <option>càs</option>
+            </select>
+            <span class="text-danger" asp-validation-for="Unit"></span>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input id="ingredient" class="form-control" asp-for="Ingredient.Name" />
+            <span class="text-danger" asp-validation-for="Ingredient.Name"></span>
+        </div>
+    </td>
+
+</tr>

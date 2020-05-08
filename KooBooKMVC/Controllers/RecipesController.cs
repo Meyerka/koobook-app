@@ -24,12 +24,6 @@ namespace KooBooKMVC.Controllers
             _ingredientData = ingredientData;
             
         }
-        public IActionResult Random()
-        {
-            var recipe = new Recipe();
-            return View(recipe);
-        }
-
 
 
         public IActionResult Index(int? page, string sortBy)
@@ -121,6 +115,7 @@ namespace KooBooKMVC.Controllers
             }
             else
             {
+                recipe.CreationDate = DateTime.Now;
                 _recipeData.Add(recipe);
             }
             _recipeData.Commit();

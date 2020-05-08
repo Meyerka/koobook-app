@@ -2,16 +2,24 @@
 @{
     ViewData["Title"] = "Detail";
 }
+    <h1>
+        @Model.Recipe.GetTotalCalories("calories")
+    </h1>
+    <div class="jumbotron" id="jumborecipe">
+        <h1 class="display-3">@Model.Recipe.Name</h1>
+        <h5>@Model.Recipe.Type</h5>
+        <div class="list-group">    
+            @foreach (var component in Model.Recipe.RecipeComponents)
+            {
+                <a href="#" class="list-group-item list-group-item-action">
+                    @component.Quantity @component.Unit @component.Ingredient.Name
+                </a>
+            }
+        </div>
 
-<h1>Detail pour @Model.Recipe.Name</h1>
-<p>@Model.Recipe.Type</p>
-
-<h2> Ingrédients </h2>
-@foreach (var component in Model.Recipe.RecipeComponents)
-{
-    <p>@component.Quantity @component.Unit @component.Ingredient.Name</p>
-}
-
-<h2>Instructions</h2>
-
-<p>@Model.Recipe.Instructions</p>
+        <hr class="my-4">
+        <p>@Model.Recipe.Instructions</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Ajouter à ma liste</a>
+        </p>
+    </div>

@@ -12,15 +12,18 @@ namespace KooBooKMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IRecipeData _recipeData;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IRecipeData recipeData)
         {
             _logger = logger;
+            _recipeData = recipeData;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var recipe = _recipeData.GetRecentRecipe();
+            return View(recipe);
         }
 
         public IActionResult Privacy()

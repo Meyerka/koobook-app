@@ -51,6 +51,11 @@ namespace KooBooKMVC
             return _db.Recipes.Include(r => r.RecipeComponents).ThenInclude(rc => rc.Ingredient).SingleOrDefault(r => r.Id == id);
         }
 
+        public Recipe GetRecentRecipe()
+        {
+            return _db.Recipes.Include(r => r.RecipeComponents).ThenInclude(rc => rc.Ingredient).OrderByDescending(r => r.CreationDate).FirstOrDefault();
+        }
+
         public IEnumerable<Recipe> GetRecipeByName(string name)
         {
 
