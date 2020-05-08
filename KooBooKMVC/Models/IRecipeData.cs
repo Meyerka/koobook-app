@@ -7,6 +7,7 @@ namespace KooBooKMVC
     {
         IEnumerable<Recipe> GetRecipeByName(string name);
         Recipe GetById(int id);
+        Recipe GetRecentRecipe();
         Recipe Update(Recipe updatedRecipe);
         Recipe Add(Recipe newRecipe);
         Recipe Delete(int id);
