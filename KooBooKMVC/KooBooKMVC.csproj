@@ -27,6 +27,10 @@
     <PackageReference Include="Twitter.typeahead" Version="0.11.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\recipes\" />
+  </ItemGroup>
+
 
 
 </Project>
