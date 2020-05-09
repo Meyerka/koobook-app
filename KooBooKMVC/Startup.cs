@@ -34,6 +34,12 @@ namespace KooBooKMVC
             services.AddScoped<IIngredientData, SqlIngredientData>();
             services.AddScoped<IRecipeComponentData, SqlRecipeComponentData>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
@@ -55,6 +61,7 @@ namespace KooBooKMVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 

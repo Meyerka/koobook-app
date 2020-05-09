@@ -2,13 +2,11 @@
 @{
     ViewData["Title"] = "Detail";
 }
-    <h1>
-        @Model.Recipe.GetTotalCalories("calories")
-    </h1>
+
     <div class="jumbotron" id="jumborecipe">
         <h1 class="display-3">@Model.Recipe.Name</h1>
         <h5>@Model.Recipe.Type</h5>
-        <div class="list-group">    
+        <div class="list-group">
             @foreach (var component in Model.Recipe.RecipeComponents)
             {
                 <a href="#" class="list-group-item list-group-item-action">
@@ -16,10 +14,17 @@
                 </a>
             }
         </div>
-
+        @if (Model.Recipe.Id != 0)
+        {
+            <div class="col-3">
+                <img src="@Model.Recipe.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" />
+            </div>
+        }
         <hr class="my-4">
         <p>@Model.Recipe.Instructions</p>
         <p class="lead">
             <a class="btn btn-primary btn-lg" href="#" role="button">Ajouter à ma liste</a>
         </p>
     </div>
+
+<partial name="_NutritionalValues">

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper.Configuration.Annotations;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System;
@@ -28,6 +29,8 @@ namespace KooBooKMVC.Models
         public int Difficulty { get; set; }
         public int Servings { get; set; }
         public int PrepTime { get; set; }
+        [DataType(DataType.ImageUrl)]
+        public string ImageUrl { get; set; }
 
         [Required]
         [StringLength(2000)]
@@ -35,7 +38,7 @@ namespace KooBooKMVC.Models
 
         public List<RecipeComponent> RecipeComponents { get; set; }
 
-        public int GetTotalCalories(string nutrient)
+        public int GetTotalNutrient(string nutrient)
         {
             double result = 0;
             int value = 0;
@@ -66,16 +69,16 @@ namespace KooBooKMVC.Models
                 switch (component.Unit)
                 {
                     case Measurement.càs:
-                        result += 0.05 * component.Quantity * component.Ingredient.Calories;
+                        result += 0.05 * component.Quantity * value;
                         break;
                     case Measurement.càc:
-                        result += 0.02 * component.Quantity * component.Ingredient.Calories;
+                        result += 0.02 * component.Quantity * value;
                         break;
                     case Measurement.g:
-                        result += 0.01 * component.Quantity * component.Ingredient.Calories;
+                        result += 0.01 * component.Quantity * value;
                         break;
                     case Measurement.mL:
-                        result += 0.01 * component.Quantity * component.Ingredient.Calories;
+                        result += 0.01 * component.Quantity * value;
                         break;
                     default:
                         break;
@@ -84,7 +87,16 @@ namespace KooBooKMVC.Models
             return (int)result;
         }
 
+        public int GetRatio(string nutrient) 
+        {
+            int divider = GetTotalNutrient("fat") + GetTotalNutrient("carbs") + GetTotalNutrient("proteins");
+            if (divider == 0)
+            {
+                return 0;
+            }
 
+            return (int)(100 * GetTotalNutrient(nutrient) / divider);
+         }
 
         public enum MealType
         {

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using KooBooKMVC.Extensions
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -45,6 +49,26 @@
                             <partial name="_LoginPartial.cshtml" />
                         </li>
 
+                        @if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList") != null)
+                        {
+                            <li>
+                                <a asp-controller="GroceryList" asp-action="Index" class="nav-link">
+                                    @{
+                                        var count = HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList").Count;
+                                    }
+                                    <i class="far fa-list-alt"></i> &nbsp; (@count)
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-list-alt"></i> &nbsp; (0)
+                                </a>
+                            </li>
+                        }
+
 
                     </ul>
 
@@ -58,16 +82,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - KooBooKMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+
     <link href="~/css/bootstrap-journal.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/typeAheadBasics.js"></script>
+    <link href="~/css/periodicTable.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/6ee08caabf.js" crossorigin="anonymous"></script>
     @RenderSection("Scripts", required: false)
 </body>
