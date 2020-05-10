@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KooBooKMVC.Controllers
 {
+    [Area("Common")]
     public class AccountController : Controller
     {
         private readonly KoobookDbContext _context;
