@@ -1,0 +1,61 @@
+﻿@model KooBooKMVC.ViewModels.IngredientViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+@if (Model.Ingredient.Id > 0)
+{
+    <h1>Edition de @Model.Ingredient.Name</h1>
+}
+else
+{
+    <h1>Création d'ingrédient</h1>
+}
+
+
+<form asp-controller="Ingredients" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Ingredient.Id" />
+    <div class="form-group">
+        <label asp-for="Ingredient.Name">Intitulé</label>
+        <input asp-for="Ingredient.Name" class="form-control" />
+
+        <span class="text-danger" asp-validation-for="Ingredient.Name"></span>
+    </div>
+
+    <h3>Pour 100 grammes:</h3>
+
+    <div class="form-group">
+        <label asp-for="Ingredient.Calories">Calories</label>
+        <input class="form-group" asp-for="Ingredient.Calories" />
+        <span class="text-danger" asp-validation-for="Ingredient.Calories"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ingredient.Carbohydrates">Glucides</label>
+        <input class="form-group" asp-for="Ingredient.Carbohydrates" />
+        <span class="text-danger" asp-validation-for="Ingredient.Carbohydrates"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ingredient.Fat">Matière grasse</label>
+        <input class="form-group" asp-for="Ingredient.Fat" />
+        <span class="text-danger" asp-validation-for="Ingredient.Fat"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ingredient.Proteins">Protéines</label>
+        <input class="form-group" asp-for="Ingredient.Proteins" />
+        <span class="text-danger" asp-validation-for="Ingredient.Proteins"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section scripts {
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+
+}
+
+

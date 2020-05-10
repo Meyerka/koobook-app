@@ -25,8 +25,6 @@ namespace KooBooKMVC.Models
         [Required]
         public MealType Type { get; set; }
         public DateTime CreationDate { get; set; }
-        [Range(0,5)]
-        public int Difficulty { get; set; }
         public int Servings { get; set; }
         public int PrepTime { get; set; }
         [DataType(DataType.ImageUrl)]
