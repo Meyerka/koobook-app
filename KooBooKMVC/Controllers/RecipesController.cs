@@ -73,6 +73,7 @@ namespace KooBooKMVC.Controllers
                 viewModel.ProteinRatio =100* recipe.GetTotalNutrient("proteins") / divider;
                 viewModel.FatRatio =  100*recipe.GetTotalNutrient("fat") / divider;
                 viewModel.CarbRatio = 100*recipe.GetTotalNutrient("carbs") / divider;
+                
             }
 
             

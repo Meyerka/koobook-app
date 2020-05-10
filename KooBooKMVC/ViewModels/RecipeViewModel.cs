@@ -14,6 +14,8 @@ namespace KooBooKMVC.ViewModels
         public int ProteinRatio { get; set; }
         public int FatRatio { get; set; }
         public int CarbRatio { get; set; }
+        
+
 
         public List<RecipeComponent> RecipeComponents { get; set; }
         public RecipeViewModel(IHtmlHelper htmlHelper)
@@ -21,12 +23,7 @@ namespace KooBooKMVC.ViewModels
             _htmlHelper = htmlHelper;
             MealTypes = _htmlHelper.GetEnumSelectList<MealType>();
 
-            int divider = Recipe.GetTotalNutrient("fat") + Recipe.GetTotalNutrient("carbs") + Recipe.GetTotalNutrient("proteins");
-            if (divider != 0) 
-            {
-                ProteinRatio = Recipe.GetTotalNutrient("proteins") / divider;
-                ProteinRatio = Recipe.GetTotalNutrient("proteins") / divider;
-            }
+
         }
     }
 }
