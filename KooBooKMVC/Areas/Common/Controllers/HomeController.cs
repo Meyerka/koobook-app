@@ -9,6 +9,7 @@ using KooBooKMVC.Models;
 
 namespace KooBooKMVC.Controllers
 {
+    [Area("Common")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

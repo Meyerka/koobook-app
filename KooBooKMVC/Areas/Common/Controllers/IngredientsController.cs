@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KooBooKMVC.Controllers
 {
-    //[Authorize]
+    [Area("Common")]
     public class IngredientsController : Controller
     {
         private readonly IIngredientData _ingredientData;
