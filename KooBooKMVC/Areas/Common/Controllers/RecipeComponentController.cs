@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KooBooKMVC.Controllers
 {
+    [Area("Common")]
     public class RecipeComponentController : Controller
     {
         private readonly IRecipeComponentData _recipeComponentData;

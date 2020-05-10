@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace KooBooKMVC.Controllers
 {
+    [Area("Common")]
     public class RecipesController : Controller
     {
         private readonly IRecipeData _recipeData;
