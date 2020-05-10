@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KooBooKMVC.Extensions;
 using KooBooKMVC.Models;
 using KooBooKMVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KooBooKMVC.Controllers
@@ -73,6 +75,27 @@ namespace KooBooKMVC.Controllers
             var ingredient = _ingredientData.GetById(ingredientId);
             var viewModel = new IngredientViewModel { Ingredient = ingredient };
             return View(viewModel);
+        }
+
+
+        public IActionResult AddToGroceryList(int ingredientId)
+        {
+            List<int> sessionList = new List<int>();
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("GroceryList")))
+            {
+                sessionList.Add(ingredientId);
+                HttpContext.Session.SetObject("GroceryList", sessionList);
+            }
+            else
+            {
+                sessionList = HttpContext.Session.GetObject<List<int>>("GroceryList");
+                if (!sessionList.Contains(ingredientId))
+                {
+                    sessionList.Add(ingredientId);
+                    HttpContext.Session.SetObject("GroceryList", sessionList);
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

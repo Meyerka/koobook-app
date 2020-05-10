@@ -1,4 +1,8 @@
-﻿@model KooBooKMVC.ViewModels.IngredientListViewModel
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using KooBooKMVC.Extensions
+
+@model KooBooKMVC.ViewModels.IngredientListViewModel
 @{
     ViewData["Title"] = "Liste des ingrédients";
 }
@@ -26,13 +30,44 @@
                    asp-route-ingredientId="@ingredient.Id">
                     Editer
                 </a>
-             </td>
+            </td>
             <td>
                 <button data-ingredient-id="@ingredient.Id" class="btn btn-outline-danger js-delete">Supprimer</button>
             </td>
+            <td>
+                @{
+                    var addToListEnabled = true;
+                    if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList") != null)
+                    {
+                        var sessionList = HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList");
+                        if (sessionList.Contains(ingredient.Id))
+                        {
+                            addToListEnabled = false;
+                        }
+                    }
+                }
+                @if (addToListEnabled)
+                {
+
+
+                    <a class="btn border-secondary"
+                       asp-controller="Ingredients"
+                       asp-action="AddToGroceryList"
+                       asp-route-ingredientId="@ingredient.Id">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                }
+                else
+                {
+                    <button class="btn border-secondary" disabled>
+                        <i class="fas fa-check"></i>
+                    </button>  
+                }
+
+            </td>
         </tr>
     }
-    </table>
+</table>
 
 <a class="btn btn-primary"
    asp-controller="Ingredients"
@@ -42,12 +77,12 @@
 
 
 @section scripts
-{ 
+{
     <script>
         $(document).ready(function () {
-            $("#ingredients").on("click",".js-delete", function () {
+            $("#ingredients").on("click", ".js-delete", function () {
                 var button = $(this);
-                
+
                 if (confirm("Êtes-vous certain de vouloir supprimer cet ingrédient ?")) {
                     $.ajax({
                         url: "/api/ingredients/" + button.attr("data-ingredient-id"),

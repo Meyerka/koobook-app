@@ -1,0 +1,24 @@
+﻿@model GroceryListViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Liste de courses</h1>
+
+@foreach (var ingredient in Model.IngredientList)
+{
+    <li>
+        @ingredient.Name
+    </li>
+    <div>
+        <a class="btn border-secondary"
+           asp-controller="GroceryList"
+           asp-action="DeleteItem"
+           asp-route-ingredientId="@ingredient.Id"> 
+            
+            Supprimer
+        </a>
+    </div>
+        }
+    
