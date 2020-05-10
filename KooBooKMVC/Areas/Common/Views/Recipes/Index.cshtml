@@ -20,18 +20,8 @@
                    Détails
                 </a>
             </td>
-            <td>
-                <a class="btn border-secondary"
-                   asp-controller="Recipes"
-                   asp-action="Edit"
-                   asp-route-recipeId="@recipe.Id">
-                    Editer
-                </a>
-            </td>
-            <td>
-                <button data-recipe-id="@recipe.Id" class="btn btn-outline-danger js-delete">Supprimer</button>
 
-            </td>
+
         </tr>
 
 
@@ -49,23 +39,5 @@
 
 @section scripts
 {
-    <script>
-        $(document).ready(function () {
-            $("#recipes").on("click",".js-delete", function () {
-                var button = $(this);
 
-                if (confirm("Êtes-vous certain de vouloir supprimer cette recette ?")) {
-                    $.ajax({
-                        url: "/api/recipes/" + button.attr("data-recipe-id"),
-                        method: "DELETE",
-                        success: function () {
-                            button.parents("tr").remove();
-                        }
-                    });
-                }
-            });
-        });
-
-
-    </script>
 }

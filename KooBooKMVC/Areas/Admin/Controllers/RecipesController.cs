@@ -123,7 +123,7 @@ namespace KooBooKMVC.Areas.Admin
             _recipeData.Commit();
 
 
-            return RedirectToAction("Detail", new { recipeId = recipe.Id });
+            return RedirectToAction("Detail", "Recipes", new { Area = "Common", recipeId = recipe.Id });
         }
 
 

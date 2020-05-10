@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using KooBooKMVC.Extensions
+
+@model KooBooKMVC.ViewModels.IngredientListViewModel
+@{
+    ViewData["Title"] = "Admin - Ingrédients";
+}
+
+<h1>Administration - Ingrédients</h1>
+
+
+<table class="table" id="ingredients">
+    @foreach (var ingredient in Model.Ingredients)
+    {
+        <tr>
+            <td>@ingredient.Name</td>
+
+            <td>
+                <a class="btn border-secondary"
+                   asp-controller="Ingredients"
+                   asp-action="Edit"
+                   asp-route-ingredientId="@ingredient.Id">
+                    Editer
+                </a>
+            </td>
+            <td>
+                <button data-ingredient-id="@ingredient.Id" class="btn btn-outline-danger js-delete">Supprimer</button>
+            </td>
+  
+        </tr>
+    }
+</table>
+
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#ingredients").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                if (confirm("Êtes-vous certain de vouloir supprimer cet ingrédient ?")) {
+                    $.ajax({
+                        url: "/api/ingredients/" + button.attr("data-ingredient-id"),
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+
+
+    </script>
+}
