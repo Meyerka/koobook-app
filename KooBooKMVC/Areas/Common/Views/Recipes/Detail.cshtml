@@ -26,7 +26,7 @@
             </div>
         }
         <hr class="my-4">
-        <p>@Model.Recipe.Instructions</p>
+        <p>@Html.Raw(@Model.Recipe.Instructions)</p>
         <p class="lead">
             <a class="btn btn-primary btn-lg" href="#" role="button">Ajouter à ma liste</a>
         </p>
