@@ -10,54 +10,80 @@
 <h1>Liste des ingrédients</h1>
 
 
-<table class="table" id="ingredients">
+<table class="list-group" id="ingredients">
+
     @foreach (var ingredient in Model.Ingredients)
     {
-        <tr>
-            <td>@ingredient.Name</td>
-            <td>
-                <a class="btn border-primary"
-                   asp-controller="Ingredients"
-                   asp-action="Detail"
-                   asp-route-ingredientId="@ingredient.Id">
-                    Détails
-                </a>
-            </td>
+    <tr class="list-group-item list-group-item-action" asp-controller="Ingredients"
+        asp-action="Detail"
+        asp-route-ingredientId="@ingredient.Id">
 
 
-            <td>
-                @{
-                    var addToListEnabled = true;
-                    if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList") != null)
+
+
+
+
+        <th scope="row" style="width:100%" class="col-3">
+            <a class="list-group-item list-group-item-action"
+               style="border: none"
+               asp-controller="Ingredients"
+               asp-action="Detail"
+               asp-route-ingredientId="@ingredient.Id">
+                @ingredient.Name
+            </a>
+        </th>
+
+        <td>
+            <i class="fas fa-fire-alt avatar mr-3" style="color:orangered; background-color:white">@ingredient.Calories</i>
+        </td>
+
+        <td class="col-3">
+            <i class="fas fa-drumstick-bite avatar mr-3" style="color:saddlebrown; background-color:white">@ingredient.Proteins</i>
+        </td>
+
+        <td class="col-3">
+            <i class="fas fa-oil-can avatar mr-3" style="color:darkgoldenrod; background-color:white">@ingredient.Fat</i>
+        </td>
+
+        <td class="col-3">
+            <i class="fas fa-candy-cane avatar mr-3" style="color:lightpink; background-color:white">@ingredient.Carbohydrates</i>
+        </td>
+
+        <td>
+            @{
+                var addToListEnabled = true;
+                if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList") != null)
+                {
+                    var sessionList = HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList");
+                    if (sessionList.Contains(ingredient.Id))
                     {
-                        var sessionList = HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList");
-                        if (sessionList.Contains(ingredient.Id))
-                        {
-                            addToListEnabled = false;
-                        }
+                        addToListEnabled = false;
                     }
                 }
-                @if (addToListEnabled)
-                {
+            }
+            @if (addToListEnabled)
+            {
 
 
-                    <a class="btn border-secondary"
-                       asp-controller="Ingredients"
-                       asp-action="AddToGroceryList"
-                       asp-route-ingredientId="@ingredient.Id">
-                        <i class="fas fa-plus"></i>
-                    </a>
-                }
-                else
-                {
-                    <button class="btn border-secondary" disabled>
-                        <i class="fas fa-check"></i>
-                    </button>  
-                }
+                <a class="btn border-secondary"
+                   asp-controller="Ingredients"
+                   asp-action="AddToGroceryList"
+                   asp-route-ingredientId="@ingredient.Id">
+                    <i class="fas fa-plus"></i>
+                </a>
+            }
+            else
+            {
+                <button class="btn border-secondary" disabled>
+                    <i class="fas fa-check"></i>
+                </button>
+            }
 
-            </td>
-        </tr>
+        </td>
+
+    </tr>
     }
+
 </table>
 
 <a class="btn btn-primary"

@@ -6,6 +6,11 @@
     <div class="jumbotron" id="jumborecipe">
         <h1 class="display-3">@Model.Recipe.Name</h1>
         <h5>@Model.Recipe.Type</h5>
+
+        <div>
+            <span class="badge badge-info" style="margin-bottom: 10px">@Model.Recipe.PrepTime minutes</span>
+            <span class="badge badge-info" style="margin-bottom: 10px">@Model.Recipe.Servings personnes</span>
+        </div>
         <div class="list-group">
             @foreach (var component in Model.Recipe.RecipeComponents)
             {
