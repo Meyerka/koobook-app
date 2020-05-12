@@ -17,15 +17,16 @@
             <td>@ingredient.Name</td>
 
             <td>
+                
                 <a class="btn border-secondary"
                    asp-controller="Ingredients"
                    asp-action="Edit"
                    asp-route-ingredientId="@ingredient.Id">
-                    Editer
+                    <i class="far fa-edit"></i>
                 </a>
             </td>
             <td>
-                <button data-ingredient-id="@ingredient.Id" class="btn btn-outline-danger js-delete">Supprimer</button>
+                <button data-ingredient-id="@ingredient.Id" class="btn btn-outline-danger js-delete"><i class="fas fa-trash"></i></button>
             </td>
   
         </tr>
