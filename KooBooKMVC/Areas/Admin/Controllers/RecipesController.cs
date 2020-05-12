@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using KooBooKMVC.Models;
@@ -110,20 +111,60 @@ namespace KooBooKMVC.Areas.Admin
                 var viewModel = new RecipeViewModel(_htmlHelper) { Recipe = recipe };
                 return View(recipe);
             }
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            var files = HttpContext.Request.Form.Files;
             if (recipe.Id > 0)
             {
+                if (files.Count > 0)
+                {
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(webRootPath, @"images\recipes");
+                    var extension_new = Path.GetExtension(files[0].FileName);
+
+
+                    
+                    if (recipe.ImageUrl != null)
+                    {
+                        var imagePath = Path.Combine(webRootPath, recipe.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(imagePath))
+                        {
+                            System.IO.File.Delete(imagePath);
+
+                        }
+                    }
+                    
+                    
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension_new), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStreams);
+                    }
+                    recipe.ImageUrl = @"\images\recipes\" + fileName + extension_new;
+
+                }
+
+
                 _recipeData.Update(recipe);
 
             }
             else
             {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(webRootPath, @"images\recipes");
+                var extension = Path.GetExtension(files[0].FileName);
+
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    files[0].CopyTo(fileStreams);
+                }
+                recipe.ImageUrl = @"\images\recipes\" + fileName + extension;
+
                 recipe.CreationDate = DateTime.Now;
                 _recipeData.Add(recipe);
             }
             _recipeData.Commit();
 
 
-            return RedirectToAction("Detail", "Recipes", new { Area = "Common", recipeId = recipe.Id });
+            return RedirectToAction("Detail", new { Area = "Common", recipeId = recipe.Id });
         }
 
 

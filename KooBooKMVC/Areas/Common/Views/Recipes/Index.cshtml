@@ -6,35 +6,30 @@
 <h1>Liste des recettes</h1>
 
 
-<table class="table" id="recipes">
-    @foreach (var recipe in Model.Recipes)
-    {
-        <tr>
-            <td>@recipe.Name</td>
-            <td>@recipe.Type</td>
-            <td>
-                <a class="btn btn-outline-primary"
-                   asp-controller="Recipes"
-                   asp-action="Detail"
-                   asp-route-recipeId="@recipe.Id">
-                   Détails
-                </a>
-            </td>
+
+@foreach (var recipe in Model.Recipes)
+{
+    <div class="card mb-3" style="float:left">
+        <a asp-controller="Recipes"
+           asp-action="Detail"
+           asp-route-recipeId="@recipe.Id">
+            <img style="height: 300px; width: 300px; display: block;" src="@recipe.ImageUrl" alt="image @recipe.Name">
+            <h3 class="card-header mb-3">@recipe.Name</h3>
+
+        </a>
+    </div>
+
+}
 
 
-        </tr>
 
-
-    }
-
-</table>
-
-<a class="btn btn-primary"
-   asp-controller="Recipes"
-   asp-action="Edit">
-    <i class="btn badge-primary">Ajouter</i>
-</a>
-
+<div style="clear: both">
+    <a class="btn btn-primary"
+       asp-controller="Recipes"
+       asp-action="Edit">
+        <i class="btn badge-primary">Ajouter</i>
+    </a>
+</div>
 
 
 @section scripts
