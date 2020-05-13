@@ -11,6 +11,7 @@ namespace KooBooKMVC.ViewModels
         public List<Recipe> Recipes { get; set; }
         public int Page { get; set; }
         public string SortBy { get; set; }
+        public string searchTerm { get; set; }
 
     }
 }

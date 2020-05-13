@@ -18,11 +18,11 @@
                    asp-controller="Recipes"
                    asp-action="Edit"
                    asp-route-recipeId="@recipe.Id">
-                    Editer
+                    <i class="far fa-edit"></i>
                 </a>
             </td>
             <td>
-                <button data-recipe-id="@recipe.Id" class="btn btn-outline-danger js-delete">Supprimer</button>
+                <button data-recipe-id="@recipe.Id" class="btn btn-outline-danger js-delete"><i class="fas fa-trash"></i></button>
 
             </td>
         </tr>

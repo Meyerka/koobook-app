@@ -23,6 +23,7 @@ namespace KooBooKMVC.Controllers
         private readonly IRecipeComponentData _recipeComponentData;
         private readonly IIngredientData _ingredientData;
         private readonly IWebHostEnvironment _webHostEnvironment;
+
         public RecipesController(IHtmlHelper htmlHelper, IRecipeData recipeData, IRecipeComponentData recipeComponentData, IIngredientData ingredientData, IWebHostEnvironment webHostEnvironment)
         {
             _htmlHelper = htmlHelper;
@@ -33,9 +34,9 @@ namespace KooBooKMVC.Controllers
         }
 
 
-        public IActionResult Index(int? page, string sortBy)
+        public IActionResult Index(int? page, string sortBy, string searchTerm)
         {
-            var recipes = _recipeData.GetRecipeByName("").ToList();
+            var recipes = _recipeData.GetRecipeByName(searchTerm).ToList();
 
 
             if (!page.HasValue)

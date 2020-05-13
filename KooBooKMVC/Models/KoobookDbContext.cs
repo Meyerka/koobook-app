@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KooBooKMVC.Models
 {
-    public class KoobookDbContext: DbContext
+    public class KoobookDbContext: IdentityDbContext
     {
         public KoobookDbContext(DbContextOptions<KoobookDbContext> options)
         : base(options)
@@ -14,8 +15,11 @@ namespace KooBooKMVC.Models
 
         }
 
+        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Ingredient>()
                         .HasIndex(u => u.Name)
                         .IsUnique();
@@ -24,5 +28,8 @@ namespace KooBooKMVC.Models
         public DbSet<Recipe> Recipes{ get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<RecipeComponent> RecipeComponents { get; set; }
+
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+
     }
 }
