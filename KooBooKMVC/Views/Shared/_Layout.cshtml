@@ -33,6 +33,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Ingredients" asp-action="Index">Ingrédients</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        { 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navBarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Administration
@@ -42,10 +44,11 @@
                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Ingredients" asp-action="Index">Ingrédients</a>
                             </div>
                         </li>
+                        }
                         <li class="nav-item">
                             <partial name="_LoginPartial.cshtml" />
                         </li>
-
+                        
                         @if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList") != null)
                         {
                             <li>

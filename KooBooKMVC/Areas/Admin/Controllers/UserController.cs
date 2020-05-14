@@ -5,10 +5,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using KooBooKMVC.Migrations;
 using KooBooKMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KooBooKMVC.Areas.Admin
 {
+    [Authorize(Roles = Utility.Admin)]
     [Area("Admin")]
     public class UserController : Controller
     {

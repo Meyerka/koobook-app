@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KooBooKMVC.Areas.Admin
 {
+    [Authorize(Roles = Utility.Admin)]
     [Area("Admin")]
     public class IngredientsController : Controller
     {

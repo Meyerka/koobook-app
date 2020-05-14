@@ -5,12 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using KooBooKMVC.Models;
 using KooBooKMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KooBooKMVC.Areas.Admin
 {
+    [Authorize(Roles = Utility.Admin)]
     [Area("Admin")]
     public class RecipesController : Controller
     {
