@@ -12,9 +12,9 @@ namespace KooBooKMVC.Data
     {
         private readonly KoobookDbContext _db;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityUser> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DbInitializer(KoobookDbContext db, UserManager<IdentityUser> userManager, RoleManager<IdentityUser> roleManager)
+        public DbInitializer(KoobookDbContext db, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _db = db;
             _userManager = userManager;
@@ -22,7 +22,7 @@ namespace KooBooKMVC.Data
         }
 
         public void Initialize()
-        {
+        { 
             try
             {
                 if (_db.Database.GetPendingMigrations().Count() > 0)
@@ -35,8 +35,18 @@ namespace KooBooKMVC.Data
             }
 
             if (_db.Roles.Any(r => r.Name == Utility.Admin)) return;
-            
 
+            _roleManager.CreateAsync(new IdentityRole(Utility.Admin)).GetAwaiter().GetResult();
+
+            _userManager.CreateAsync(new IdentityUser
+            {
+                UserName = "karlerik.meyer@gmail.com",
+                Email = "karlerik.meyer@gmail.com",
+                EmailConfirmed = true,
+            }, "Admin123*").GetAwaiter().GetResult();
+
+            IdentityUser user = _db.Users.Where(u => u.Email == "karlerik.meyer@gmail.com").FirstOrDefault();
+            _userManager.AddToRoleAsync(user, Utility.Admin).GetAwaiter().GetResult();
         }
     }
 }

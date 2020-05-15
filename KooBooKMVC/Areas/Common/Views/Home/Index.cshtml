@@ -7,7 +7,11 @@
 
 <div class="jumbotron">
     <h1 class="display-3">Dernière recette ajoutée</h1>
-    <p class="lead">@Model.Name</p>
+    @if (Model != null)
+	{
+<p class="lead">@Model.Name</p>	 
+	}
+        
     <hr class="my-4">
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <p class="lead">

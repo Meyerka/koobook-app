@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using KooBooKMVC.Areas.Identity.Data;
+using KooBooKMVC.Data;
 using KooBooKMVC.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,7 @@ namespace KooBooKMVC
             services.AddScoped<IIngredientData, SqlIngredientData>();
             services.AddScoped<IRecipeComponentData, SqlRecipeComponentData>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -58,7 +60,7 @@ namespace KooBooKMVC
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInit)
         {
             if (env.IsDevelopment())
             {
@@ -75,6 +77,7 @@ namespace KooBooKMVC
             app.UseSession();
 
             app.UseRouting();
+            dbInit.Initialize();
 
             app.UseAuthentication();
             app.UseAuthorization();
