@@ -160,16 +160,20 @@ namespace KooBooKMVC.Controllers
             }
             else
             {
-                string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(webRootPath, @"images\recipes");
-                var extension = Path.GetExtension(files[0].FileName);
-
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                if (files.Count > 0)
                 {
-                    files[0].CopyTo(fileStreams);
-                }
-                recipe.ImageUrl = @"\images\recipes\" + fileName + extension;
 
+
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(webRootPath, @"images\recipes");
+                    var extension = Path.GetExtension(files[0].FileName);
+
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStreams);
+                    }
+                    recipe.ImageUrl = @"\images\recipes\" + fileName + extension;
+                }
                 recipe.CreationDate = DateTime.Now;
                 _recipeData.Add(recipe);
             }

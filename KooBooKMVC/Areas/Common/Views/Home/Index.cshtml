@@ -3,18 +3,27 @@
     ViewData["Title"] = "Home Page";
 }
 
+    <body style="background-image: url('images/common/home/bgkitchen.jpg');">
 
 
-<div class="jumbotron">
-    <h1 class="display-3">Dernière recette ajoutée</h1>
-    @if (Model != null)
-	{
-<p class="lead">@Model.Name</p>	 
-	}
-        
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Index" role="button">Voir la liste des recettes</a>
-    </p>
-</div>
+        <div class="jumbotron" style="background: rgba(255, 255, 255, 0.6);">
+            <h1 class="display-3 text-black-50 font-weight-bolder">Dernière recette ajoutée</h1>
+            @if (Model != null)
+            {
+                <h2 class="lead text-black-50 font-weight-bolder">@Model.Name</h2>
+            
+
+                <div class="col-3">
+                    <img src="@Model.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" />
+                </div>
+
+                <hr class="my-4">
+                <p>Une courte description ici</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Index" role="button">Voir la liste des recettes</a>
+                </p>
+
+            }
+        </div>
+
+    </body>

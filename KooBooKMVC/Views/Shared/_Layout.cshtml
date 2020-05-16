@@ -12,12 +12,16 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/typeahead.css" rel="stylesheet" />
 
+
 </head>
 <body>
     <header>
+        
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-book-open"></i> KooBooK</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/layout/kbklogov1.png" style="width:100px; height:100px;" />
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,21 +38,21 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Ingredients" asp-action="Index">Ingrédients</a>
                         </li>
                         @if (User.IsInRole("Admin"))
-                        { 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navBarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Administration
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navBarDropDown">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Recipes" asp-action="Index">Recettes</a>
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Ingredients" asp-action="Index">Ingrédients</a>
-                            </div>
-                        </li>
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navBarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Administration
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navBarDropDown">
+                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Recipes" asp-action="Index">Recettes</a>
+                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Ingredients" asp-action="Index">Ingrédients</a>
+                                </div>
+                            </li>
                         }
                         <li class="nav-item">
                             <partial name="_LoginPartial.cshtml" />
                         </li>
-                        
+
                         @if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>("GroceryList") != null)
                         {
                             <li>
