@@ -1,7 +1,9 @@
 ﻿using KooBooKMVC.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using static KooBooKMVC.Models.Recipe;
 
 namespace KooBooKMVC
 {
@@ -49,6 +51,19 @@ namespace KooBooKMVC
         public Recipe GetById(int id)
         {
             return _db.Recipes.Include(r => r.RecipeComponents).ThenInclude(rc => rc.Ingredient).SingleOrDefault(r => r.Id == id);
+        }
+
+        public Recipe GetRandom(MealType? mealType)
+        {
+            if (mealType == null)
+            {
+                return _db.Recipes.OrderBy(t => Guid.NewGuid())
+                                    .FirstOrDefault();
+            }
+            return _db.Recipes.OrderBy(t => Guid.NewGuid())
+                                    .FirstOrDefault(r => r.Type == mealType);
+            
+
         }
 
         public Recipe GetRecentRecipe()

@@ -12,5 +12,6 @@ namespace KooBooKMVC
         Recipe Add(Recipe newRecipe);
         Recipe Delete(int id);
         int Commit();
+        Recipe GetRandom(Recipe.MealType? entrée);
     }
 }

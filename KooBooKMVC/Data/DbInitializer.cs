@@ -22,7 +22,7 @@ namespace KooBooKMVC.Data
         }
 
         public void Initialize()
-        { 
+        {
             try
             {
                 if (_db.Database.GetPendingMigrations().Count() > 0)
@@ -30,9 +30,8 @@ namespace KooBooKMVC.Data
                     _db.Database.Migrate();
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) { }
+       
 
             if (_db.Roles.Any(r => r.Name == Utility.Admin)) return;
 

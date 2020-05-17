@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using KooBooKMVC.Models;
+using KooBooKMVC.ViewModels;
+using static KooBooKMVC.Models.Recipe;
 
 namespace KooBooKMVC.Controllers
 {
@@ -23,8 +25,12 @@ namespace KooBooKMVC.Controllers
 
         public IActionResult Index()
         {
-            var recipe = _recipeData.GetRecentRecipe();
-            return View(recipe);
+            var recentRecipe = _recipeData.GetRecentRecipe();
+            var starterRecipe = _recipeData.GetRandom(MealType.Entrée);
+            var mainRecipe= _recipeData.GetRandom(MealType.Plat);
+            var dessertRecipe = _recipeData.GetRandom(MealType.Dessert);
+
+            return View(new HomeViewModel { RecentRecipe = recentRecipe, RandomStarter = starterRecipe, RandomMainCourse = mainRecipe, RandomDessert = dessertRecipe });
         }
 
         public IActionResult Privacy()

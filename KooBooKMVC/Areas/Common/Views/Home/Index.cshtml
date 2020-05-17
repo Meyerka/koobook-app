@@ -1,29 +1,86 @@
-﻿@model Recipe
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Accueil";
 }
 
     <body style="background-image: url('images/common/home/bgkitchen.jpg');">
 
-
+        @if (Model.RecentRecipe != null)
+        {
         <div class="jumbotron" style="background: rgba(255, 255, 255, 0.6);">
-            <h1 class="display-3 text-black-50 font-weight-bolder">Dernière recette ajoutée</h1>
-            @if (Model != null)
-            {
-                <h2 class="lead text-black-50 font-weight-bolder">@Model.Name</h2>
-            
+            <h1 class="display-3 text-black-50 font-weight-bolder">@Model.RecentRecipe.Name</h1>
 
-                
-                    <img src="@Model.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" class="frame"/>
-                
+            <h2 class="lead text-black-50 font-weight-bolder">Dernière recette ajoutée</h2>
 
-                <hr class="my-4">
-                <p>@Model.ShortDescription</p>
-                <p class="lead">
-                    <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Detail" asp-route-recipeId="@Model.Id" role="button">Voir la recette</a>
-                </p>
 
-            }
+
+            <img src="@Model.RecentRecipe.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" class="frame" />
+
+
+            <hr class="my-4">
+            <p>@Model.RecentRecipe.ShortDescription</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Detail" asp-route-recipeId="@Model.RecentRecipe.Id" role="button">Voir la recette</a>
+            </p>
+
+
         </div>
+        }
+
+
+        @if (Model.RandomStarter != null)
+        {
+        <div class="jumbotron" style="background: rgba(255, 255, 255, 0.6);">
+            <h1 class="display-3 text-black-50 font-weight-bolder">@Model.RandomStarter.Name</h1>
+
+            <h2 class="lead text-black-50 font-weight-bolder">Une entrée au hasard ?</h2>
+
+            <img src="@Model.RandomStarter.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" class="frame" />
+
+            <hr class="my-4">
+            <p>@Model.RandomStarter.ShortDescription</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Detail" asp-route-recipeId="@Model.RandomStarter.Id" role="button">Voir la recette</a>
+            </p>
+        </div>
+        }
+
+
+
+        @if (Model.RandomMainCourse != null)
+        {
+        <div class="jumbotron" style="background: rgba(255, 255, 255, 0.6);">
+            <h1 class="display-3 text-black-50 font-weight-bolder">@Model.RandomMainCourse.Name</h1>
+
+            <h2 class="lead text-black-50 font-weight-bolder">Un plat au hasard ?</h2>
+
+            <img src="@Model.RandomMainCourse.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" class="frame" />
+
+            <hr class="my-4">
+            <p>@Model.RandomMainCourse.ShortDescription</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Detail" asp-route-recipeId="@Model.RandomMainCourse.Id" role="button">Voir la recette</a>
+            </p>
+        </div>
+        }
+
+        
+        @if (Model.RandomDessert != null)
+        {
+        <div class="jumbotron" style="background: rgba(255, 255, 255, 0.6);">
+            <h1 class="display-3 text-black-50 font-weight-bolder">@Model.RandomDessert.Name</h1>
+
+            <h2 class="lead text-black-50 font-weight-bolder">Un plat au hasard ?</h2>
+
+            <img src="@Model.RandomDessert.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" class="frame" />
+
+            <hr class="my-4">
+            <p>@Model.RandomDessert.ShortDescription</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Detail" asp-route-recipeId="@Model.RandomDessert.Id" role="button">Voir la recette</a>
+            </p>
+        </div>
+        }
+
 
     </body>
