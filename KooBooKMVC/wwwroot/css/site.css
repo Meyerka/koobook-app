@@ -93,5 +93,18 @@ body {
 }
 
 
+img {
+    max-width: 100%;
+    height: auto;
+
+}
+
+
+.frame {
+    height: 250px;
+    background: transparent no-repeat center;
+    background-size: cover;
+}
+
 
 

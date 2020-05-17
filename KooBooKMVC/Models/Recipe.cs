@@ -34,6 +34,9 @@ namespace KooBooKMVC.Models
         [StringLength(2000)]
         public string Instructions { get; set; }
 
+        [StringLength(100)]
+        public string ShortDescription { get; set; }
+
         public List<RecipeComponent> RecipeComponents { get; set; }
 
         public int GetTotalNutrient(string nutrient)

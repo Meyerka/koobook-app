@@ -23,6 +23,13 @@ else
     </div>
 
     <div class="form-group">
+        <label asp-for="ShortDescription">Courte description</label>
+        <input asp-for="ShortDescription" class="form-control" />
+
+        <span class="text-danger" asp-validation-for="ShortDescription"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="Servings">Portions</label>
         <input asp-for="Servings" class="form-control" />
         <span class="text-danger" asp-validation-for="Servings"></span>

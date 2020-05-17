@@ -30,6 +30,5 @@ namespace KooBooKMVC.Models
         public DbSet<RecipeComponent> RecipeComponents { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-
     }
 }

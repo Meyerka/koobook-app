@@ -1,6 +1,6 @@
 ﻿@model Recipe
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Accueil";
 }
 
     <body style="background-image: url('images/common/home/bgkitchen.jpg');">
@@ -13,14 +13,14 @@
                 <h2 class="lead text-black-50 font-weight-bolder">@Model.Name</h2>
             
 
-                <div class="col-3">
-                    <img src="@Model.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" />
-                </div>
+                
+                    <img src="@Model.ImageUrl" style="border-radius:5px; border: 1px solid #bbb9b9" class="frame"/>
+                
 
                 <hr class="my-4">
-                <p>Une courte description ici</p>
+                <p>@Model.ShortDescription</p>
                 <p class="lead">
-                    <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Index" role="button">Voir la liste des recettes</a>
+                    <a class="btn btn-primary btn-lg" asp-controller="Recipes" asp-action="Detail" asp-route-recipeId="@Model.Id" role="button">Voir la recette</a>
                 </p>
 
             }

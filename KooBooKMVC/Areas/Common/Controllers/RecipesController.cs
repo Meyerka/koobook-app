@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ImageProcessor;
+using ImageProcessor.Imaging;
 using KooBooKMVC.Extensions;
 using KooBooKMVC.Models;
 using KooBooKMVC.ViewModels;
@@ -12,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing.Constraints;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace KooBooKMVC.Controllers
 {
@@ -148,7 +152,12 @@ namespace KooBooKMVC.Controllers
                     }
                     using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension_new), FileMode.Create))
                     {
-                        files[0].CopyTo(fileStreams);
+
+                        var imageFactory = new ImageFactory(true);
+                        imageFactory.Load(files[0].OpenReadStream()).Resize(
+                            new ResizeLayer(new Size(128, 128), ResizeMode.Max)).Save(fileStreams);
+
+                        //files[0].CopyTo(fileStreams);
                     }
                     recipe.ImageUrl = @"\images\recipes\" + fileName + extension_new;
 
@@ -170,7 +179,12 @@ namespace KooBooKMVC.Controllers
 
                     using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
                     {
-                        files[0].CopyTo(fileStreams);
+                        var imageFactory = new ImageFactory(true);
+                        imageFactory.Load(files[0].OpenReadStream()).Resize(
+                            new ResizeLayer(new Size(720, 480), ResizeMode.Max)).Save(fileStreams);
+
+
+                        //files[0].CopyTo(fileStreams);
                     }
                     recipe.ImageUrl = @"\images\recipes\" + fileName + extension;
                 }
