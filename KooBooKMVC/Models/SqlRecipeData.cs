@@ -71,6 +71,39 @@ namespace KooBooKMVC
             return _db.Recipes.Include(r => r.RecipeComponents).ThenInclude(rc => rc.Ingredient).OrderByDescending(r => r.CreationDate).FirstOrDefault();
         }
 
+        public IEnumerable<Recipe> GetRecipeBy(string filter, string term)
+        {
+
+            switch (filter)
+            {
+                case "all":
+                    return _db.Recipes.Include(r => r.RecipeComponents)
+                                .ThenInclude(rc => rc.Ingredient)
+                                .Where(r => r.Name.Contains(term) ||
+                                        string.IsNullOrEmpty(term) ||
+                                         r.RecipeComponents.All(rc => rc.Ingredient.Name.Contains(term)))
+                                .OrderBy(r => r.Name);
+
+                case "ingredients":
+                    return _db.Recipes.Include(r => r.RecipeComponents)
+                                .ThenInclude(rc => rc.Ingredient)
+                                .Where(r => r.RecipeComponents.All(rc => rc.Ingredient.Name.Contains(term)))
+                                .OrderBy(r => r.Name);
+
+                case "description":
+                    return null;
+
+                default:
+                    return _db.Recipes.Include(r => r.RecipeComponents)
+                                .ThenInclude(rc => rc.Ingredient)
+                                .Where(r => r.Name.Contains(term) ||
+                                        string.IsNullOrEmpty(term) ||
+                                         r.RecipeComponents.All(rc => rc.Ingredient.Name.Contains(term)))
+                                .OrderBy(r => r.Name);
+            }
+            
+        }
+
         public IEnumerable<Recipe> GetRecipeByName(string name)
         {
 

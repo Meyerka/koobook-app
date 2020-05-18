@@ -12,6 +12,7 @@ namespace KooBooKMVC.ViewModels
         public int Page { get; set; }
         public string SortBy { get; set; }
         public string searchTerm { get; set; }
+        public string searchFilter { get; set; }
 
     }
 }

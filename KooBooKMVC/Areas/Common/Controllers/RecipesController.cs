@@ -38,9 +38,11 @@ namespace KooBooKMVC.Controllers
         }
 
 
-        public IActionResult Index(int? page, string sortBy, string searchTerm)
+        public IActionResult Index(int? page, string sortBy, string searchTerm, string searchFilter)
         {
-            var recipes = _recipeData.GetRecipeByName(searchTerm).ToList();
+
+            
+            var recipes = _recipeData.GetRecipeBy(searchFilter, searchTerm).ToList();
 
 
             if (!page.HasValue)
@@ -59,6 +61,7 @@ namespace KooBooKMVC.Controllers
                 Recipes = recipes,
                 Page = page.Value,
                 SortBy = sortBy
+
             };
 
             return View(viewModel);
