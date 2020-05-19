@@ -21,15 +21,18 @@
                 <option>mL</option>
                 <option>càc</option>
                 <option>càs</option>
+                <option>Unité</option>
             </select>
             <span class="text-danger" asp-validation-for="Unit"></span>
         </div>
     </td>
     <td>
         <div class="form-group">
-            <input id="ingredient" class="form-control" asp-for="Ingredient.Name" />
+            <input id="ingredient" class="form-control ingredient" asp-for="Ingredient.Name" />
             <span class="text-danger" asp-validation-for="Ingredient.Name"></span>
         </div>
     </td>
 
 </tr>
+
+

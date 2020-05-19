@@ -69,11 +69,14 @@ namespace KooBooKMVC.Models
 
                 switch (component.Unit)
                 {
+                    case Measurement.Unité:
+                        result += 0.01 * component.Quantity * value;
+                        break;
                     case Measurement.càs:
-                        result += 0.05 * component.Quantity * value;
+                        result += 0.15 * component.Quantity * value;
                         break;
                     case Measurement.càc:
-                        result += 0.02 * component.Quantity * value;
+                        result += 0.05 * component.Quantity * value;
                         break;
                     case Measurement.g:
                         result += 0.01 * component.Quantity * value;
@@ -105,7 +108,9 @@ namespace KooBooKMVC.Models
             Plat,
             Dessert,
             Apéritif,
-            Cocktail
+            Cocktail,
+            Accompagnement,
+            Autre
         }
 
     }

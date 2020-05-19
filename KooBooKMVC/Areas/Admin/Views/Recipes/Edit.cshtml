@@ -49,6 +49,7 @@ else
             <option>Dessert</option>
             <option>Apéritif</option>
             <option>Cocktail</option>
+            <option>Accompagnement</option>
         </select>
         <span class="text-danger" asp-validation-for="Type"></span>
     </div>
@@ -102,14 +103,14 @@ else
 
 @section scripts {
     <script src="https://cdn.tiny.cloud/1/ckc7z4d3wqnq8a7x5dtgyck2vrj4wihq6olivx6ydwj4kfsj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-        selector: 'textarea',
-        plugins:'lists',
-        menubar: 'file edit format'
-    })
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'file edit format'
+        })
 
-</script>
+    </script>
 
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -127,6 +128,44 @@ else
             });
         });
     </script>
+
+
+    <script>
+            $(".ingredient").typeahead({
+                minLength: 1,
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/recipes/",
+                        data: {
+                            "name": request
+                        },
+                        type: "GET",
+                        contentType: "json",
+                        success: function (data) {
+                            items = [];
+                            map = {};
+                            $.each(data, function (i, item) {
+                                var id = item.Name;
+                                var name = item.Name;
+                                map[name] = {
+                                    id: id,
+                                    name: name
+                                };
+                                items.push(name);
+                            });
+                            response(items);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                updater: function (item) { //If simultaneously want to update value somewhere else $("#update").val(map[item].id); return item; } });
+    </script>
+
 
 
 

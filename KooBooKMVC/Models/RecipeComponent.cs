@@ -28,6 +28,7 @@ namespace KooBooKMVC.Models
         càs,
         càc,
         g,
-        mL
+        mL,
+        Unité
     }
 }
