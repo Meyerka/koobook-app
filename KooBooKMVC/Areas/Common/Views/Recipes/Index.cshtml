@@ -27,20 +27,31 @@
     </div>
 </form>
 
+
+<section class="container">
+    <div class="row">
+
 @foreach (var recipe in Model.Recipes)
 {
-    <div class="card mb-3" style="float:left">
-        <a asp-controller="Recipes"
-           asp-action="Detail"
-           asp-route-recipeId="@recipe.Id">
-            <img style="height: 300px; width: 300px;  display: block;" src="@recipe.ImageUrl" alt="image @recipe.Name">
-            <h3 class="card-header mb-3">@recipe.Name</h3>
+        <div class="col-md-6 col-lg-4">
 
-        </a>
-    </div>
-
+            <div class="card">
+                <a asp-controller="Recipes"
+                   asp-action="Detail"
+                   asp-route-recipeId="@recipe.Id">
+                    <img class="card-img-top" src="@recipe.ImageUrl" alt="image @recipe.Name">
+                    <h5 class="card-title">@recipe.Name</h5>
+                    @if (recipe.ShortDescription != null)
+                    {
+                        <p class="card-text">@recipe.ShortDescription</p>
+                    }
+                </a>
+            </div>
+        </div>
 }
 
+    </div>
+</section>
 
 
 <div style="clear: both">
@@ -50,6 +61,7 @@
         <i class="btn badge-primary">Ajouter</i>
     </a>
 </div>
+
 
 
 @section scripts
