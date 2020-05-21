@@ -28,28 +28,29 @@
 </form>
 
 
-<section class="container">
-    <div class="row">
+<section>
+    <div class="container">
+        <div class="row">
 
-@foreach (var recipe in Model.Recipes)
+            @foreach (var recipe in Model.Recipes)
 {
-        <div class="col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4">
 
-            <div class="card">
-                <a asp-controller="Recipes"
-                   asp-action="Detail"
-                   asp-route-recipeId="@recipe.Id">
-                    <img class="card-img-top" src="@recipe.ImageUrl" alt="image @recipe.Name">
-                    <h5 class="card-title">@recipe.Name</h5>
-                    @if (recipe.ShortDescription != null)
-                    {
-                        <p class="card-text">@recipe.ShortDescription</p>
-                    }
-                </a>
+                <div class="card h-100">
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <img class="card-img-top embed-responsive-item" src="@recipe.ImageUrl" alt="image @recipe.Name">
+                    </div>
+                        <div class="card-body">
+                        <h5 class="card-title">@recipe.Name</h5>
+                        <a class="stretched-link" asp-controller="Recipes"
+                           asp-action="Detail"
+                           asp-route-recipeId="@recipe.Id">
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
 }
-
+        </div>
     </div>
 </section>
 

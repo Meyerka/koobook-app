@@ -68,7 +68,7 @@ namespace KooBooKMVC.Areas.Admin
                 _ingredientData.Add(ingredient);
             }
             _ingredientData.Commit();
-            return RedirectToAction("Detail", new { Area = "Common", ingredientId = ingredient.Id });
+            return RedirectToAction("Detail", new { area = "Common", ingredientId = ingredient.Id });
         }
 
         public IActionResult Delete(int ingredientId)

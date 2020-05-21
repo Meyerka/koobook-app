@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ImageProcessor;
+using ImageProcessor.Imaging;
 using KooBooKMVC.Models;
 using KooBooKMVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -122,23 +125,26 @@ namespace KooBooKMVC.Areas.Admin
                     string fileName = Guid.NewGuid().ToString();
                     var uploads = Path.Combine(webRootPath, @"images\recipes");
                     var extension_new = Path.GetExtension(files[0].FileName);
-
-
-                    
+                    string currentImg = "";
                     if (recipe.ImageUrl != null)
                     {
-                        var imagePath = Path.Combine(webRootPath, recipe.ImageUrl.TrimStart('\\'));
-                        if (System.IO.File.Exists(imagePath))
-                        {
-                            System.IO.File.Delete(imagePath);
-
-                        }
+                        currentImg = recipe.ImageUrl.TrimStart('\\');
                     }
-                    
-                    
+
+                    var imagePath = Path.Combine(webRootPath, currentImg);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+
+                    }
                     using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension_new), FileMode.Create))
                     {
-                        files[0].CopyTo(fileStreams);
+
+                        var imageFactory = new ImageFactory(true);
+                        imageFactory.Load(files[0].OpenReadStream()).Resize(
+                            new ResizeLayer(new Size(720, 480), ResizeMode.Max)).Save(fileStreams);
+
+                        //files[0].CopyTo(fileStreams);
                     }
                     recipe.ImageUrl = @"\images\recipes\" + fileName + extension_new;
 
@@ -150,23 +156,32 @@ namespace KooBooKMVC.Areas.Admin
             }
             else
             {
-                string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(webRootPath, @"images\recipes");
-                var extension = Path.GetExtension(files[0].FileName);
-
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                if (files.Count > 0)
                 {
-                    files[0].CopyTo(fileStreams);
-                }
-                recipe.ImageUrl = @"\images\recipes\" + fileName + extension;
 
+
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(webRootPath, @"images\recipes");
+                    var extension = Path.GetExtension(files[0].FileName);
+
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                        var imageFactory = new ImageFactory(true);
+                        imageFactory.Load(files[0].OpenReadStream()).Resize(
+                            new ResizeLayer(new Size(720, 480), ResizeMode.Max)).Save(fileStreams);
+
+
+                        //files[0].CopyTo(fileStreams);
+                    }
+                    recipe.ImageUrl = @"\images\recipes\" + fileName + extension;
+                }
                 recipe.CreationDate = DateTime.Now;
                 _recipeData.Add(recipe);
             }
             _recipeData.Commit();
 
 
-            return RedirectToAction("Detail", new { Area = "Common", recipeId = recipe.Id });
+            return RedirectToAction("Detail", new { area = "Common", recipeId = recipe.Id });
         }
 
 
