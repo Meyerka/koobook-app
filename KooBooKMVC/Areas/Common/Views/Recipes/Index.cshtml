@@ -5,65 +5,115 @@
 
 <h1>Liste des recettes</h1>
 
+<body id="recipeBody">
 
-<form method="get">
-    <div class="form-group">
-        <div class="input-group">
-            <input type="search" class="form-control"
-                   asp-for="searchTerm" />
 
-            <div class="input-group-btn search-panel">
-                <select asp-for="searchFilter" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <option value="all">Tous</option>
-                    <option value="ingredients">Ingrédients</option>
-                    <option value="description">Description</option>
-                </select>
+
+
+    <form method="get">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="search" class="form-control"
+                       asp-for="searchTerm" />
+
+                <div class="input-group-btn search-panel">
+                    <select asp-for="searchFilter" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <option value="all">Tous</option>
+                        <option value="ingredients">Ingrédients</option>
+                        <option value="description">Description</option>
+                    </select>
+                </div>
+
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary ml-1"><i class="fas fa-search"></i></button>
+                </span>
             </div>
-
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary ml-1"><i class="fas fa-search"></i></button>
-            </span>
         </div>
-    </div>
-</form>
+    </form>
 
 
-<section>
     <div class="container">
         <div class="row">
 
+
             @foreach (var recipe in Model.Recipes)
 {
-            <div class="col-md-6 col-lg-4">
+            <div class="col-4">
 
-                <div class="card h-100">
-                    <div class="embed-responsive embed-responsive-4by3">
-                        <img class="card-img-top embed-responsive-item" src="@recipe.ImageUrl" alt="image @recipe.Name">
+                <div class="property-card">
+                    <a href="#">
+
+                        @if(recipe.ImageUrl != null)
+                        {                        
+                        <div class="property-image" style="background-image: url(@recipe.ImageUrl.Replace("\\","/"));">
+                            <div class="property-image-title">
+                                <!-- Optional <h5>Card Title</h5> If you want it, turn on the CSS also. -->
+                            </div>
+                        </div>
+                        }
+                        else 
+                        {
+                    <div class="property-image" style="background-image: url(/images/Recipes/empty-plate.jpg);">
+                        <div class="property-image-title">
+                            jhfuehuighreiugheriuhgreiui
+                            <!-- Optional <h5>Card Title</h5> If you want it, turn on the CSS also. -->
+                        </div>
                     </div>
-                        <div class="card-body">
-                        <h5 class="card-title">@recipe.Name</h5>
-                        <a class="stretched-link" asp-controller="Recipes"
-                           asp-action="Detail"
-                           asp-route-recipeId="@recipe.Id">
-                        </a>
+                        }
+
+                    </a>
+                    <div class="property-description">
+                        <h5> @recipe.Name </h5>
+                        <p>@recipe.ShortDescription</p>
                     </div>
+                    <a href="#">
+                        <div class="property-social-icons">
+                            <!-- I would usually put multipe divs inside here set to flex. Some people might use Ul li. Multiple Solutions -->
+                        </div>
+                    </a>
                 </div>
             </div>
-}
+                }
         </div>
+
     </div>
-</section>
+
+    @*<section>
+            <div class="container">
+                <div class="row">
+
+                    @foreach (var recipe in Model.Recipes)
+        {
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="card h-100">
+                            <div class="embed-responsive embed-responsive-4by3">
+                                <img class="card-img-top embed-responsive-item" src="@recipe.ImageUrl" alt="image @recipe.Name">
+                            </div>
+                                <div class="card-body">
+                                <h5 class="card-title">@recipe.Name</h5>
+                                <a class="stretched-link" asp-controller="Recipes"
+                                   asp-action="Detail"
+                                   asp-route-recipeId="@recipe.Id">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+        }
+                </div>
+            </div>
+        </section>*@
 
 
-<div style="clear: both">
-    <a class="btn btn-primary"
-       asp-controller="Recipes"
-       asp-action="Edit">
-        <i class="btn badge-primary">Ajouter</i>
-    </a>
-</div>
+    <div style="clear: both">
+        <a class="btn btn-primary"
+           asp-controller="Recipes"
+           asp-action="Edit">
+            <i class="btn badge-primary">Ajouter</i>
+        </a>
+    </div>
 
-
+</body>
 
 @section scripts
 {

@@ -62,7 +62,7 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     /* Location of the image */
-    background-image: url(images/background-photo.jpg);
+    /*background-image: url(images/background-photo.jpg);*/
     /* Background image is centered vertically and horizontally at all times */
     background-position: center center;
     /* Background image doesn't tile */
@@ -108,5 +108,17 @@ img {
 
 .embed-responsive .card-img-top {
     object-fit: cover;
+}
+
+#homeBody {
+    background-image: url('../images/common/home/bgHome.jpg');
+}
+
+#recipeBody {
+    background-image: url('../images/common/recipes/bgRecipe.jpg');
+}
+
+#ingredientBody {
+    background-image: url('../images/common/home/bgIngredient.jpg');
 }
 
