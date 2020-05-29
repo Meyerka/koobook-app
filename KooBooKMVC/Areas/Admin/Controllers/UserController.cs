@@ -14,7 +14,6 @@ namespace KooBooKMVC.Areas.Admin
     [Area("Admin")]
     public class UserController : Controller
     {
-
         private readonly IUserData _userData;
         private readonly KoobookDbContext _db;
         public UserController(IUserData userData, KoobookDbContext db)
