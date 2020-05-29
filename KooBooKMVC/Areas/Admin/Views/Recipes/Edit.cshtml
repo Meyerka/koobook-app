@@ -131,39 +131,58 @@ else
 
 
     <script>
-            $(".ingredient").typeahead({
-                minLength: 1,
-                source: function (request, response) {
-                    $.ajax({
-                        url: "/api/recipes/",
-                        data: {
-                            "name": request
-                        },
-                        type: "GET",
-                        contentType: "json",
-                        success: function (data) {
-                            items = [];
-                            map = {};
-                            $.each(data, function (i, item) {
-                                var id = item.Name;
-                                var name = item.Name;
-                                map[name] = {
-                                    id: id,
-                                    name: name
-                                };
-                                items.push(name);
-                            });
-                            response(items);
-                        },
-                        error: function (response) {
-                            alert(response.responseText);
-                        },
-                        failure: function (response) {
-                            alert(response.responseText);
-                        }
-                    });
-                },
-                updater: function (item) { //If simultaneously want to update value somewhere else $("#update").val(map[item].id); return item; } });
+
+        var ingredients = new Bloodhound({
+                        datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+
+          prefetch: '~/test.json'
+        });
+
+        // passing in `null` for the `options` arguments will result in the default
+        // options being used
+        $('.ingredient').typeahead(null, {
+                        name: 'name',
+          source: ingredients
+        });
+
+
+
+
+            //$(".ingredient").typeahead({
+            //    minLength: 1,
+            //    source: function (request, response) {
+            //        $.ajax({
+            //            url: "/api/recipes/",
+            //            data: {
+            //                "name": request
+            //            },
+            //            type: "GET",
+            //            contentType: "json",
+            //            success: function (data) {
+            //                items = [];
+            //                map = {};
+            //                $.each(data, function (i, item) {
+            //                    var id = item.Name;
+            //                    var name = item.Name;
+            //                    map[name] = {
+            //                        id: id,
+            //                        name: name
+            //                    };
+            //                    items.push(name);
+            //                });
+            //                response(items);
+            //                console.log(items);
+            //            },
+            //            error: function (response) {
+            //                alert(response.responseText);
+            //            },
+            //            failure: function (response) {
+            //                alert(response.responseText);
+            //            }
+            //        });
+            //    },
+            //    updater: function (item) { //If simultaneously want to update value somewhere else $("#update").val(map[item].id); return item; } });
     </script>
 
 
