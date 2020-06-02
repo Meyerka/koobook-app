@@ -184,7 +184,7 @@ namespace KooBooKMVC.Controllers
                     {
                         var imageFactory = new ImageFactory(true);
                         imageFactory.Load(files[0].OpenReadStream()).Resize(
-                            new ResizeLayer(new Size(720, 480), ResizeMode.Max)).Save(fileStreams);
+                            new ResizeLayer(new Size(1080, 720), ResizeMode.Max)).Save(fileStreams);
 
 
                         //files[0].CopyTo(fileStreams);
