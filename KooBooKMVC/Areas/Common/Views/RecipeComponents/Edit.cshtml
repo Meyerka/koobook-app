@@ -4,27 +4,29 @@
 }
 
 
-<form asp-controller="Ingredients" asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-        <label asp-for="Quantity">Quantité</label>
-        <input asp-for="Quantity" class="form-control" />
+    <form asp-controller="Ingredients" asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Quantity">Quantité</label>
+            <input asp-for="Quantity" class="form-control" />
 
-        <span class="text-danger" asp-validation-for="Quantity"></span>
-    </div>
+            <span class="text-danger" asp-validation-for="Quantity"></span>
+        </div>
 
 
-    <div class="form-group">
-        <label asp-for="Unit">Unité</label>
-        <input class="form-group" asp-for="Unit" />
-        <span class="text-danger" asp-validation-for="Unit"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Unit">Unité</label>
+            <input class="form-group" asp-for="Unit" />
+            <span class="text-danger" asp-validation-for="Unit"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Ingredient.Name">Ingrédient</label>
-        <input class="form-group" asp-for="Ingredient.Name" />
-        <span class="text-danger" asp-validation-for="Ingredient.Name"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Ingredient.Name">Ingrédient</label>
+            <input class="form-group" asp-for="Ingredient.Name" />
+            <span class="text-danger" asp-validation-for="Ingredient.Name"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+        
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>

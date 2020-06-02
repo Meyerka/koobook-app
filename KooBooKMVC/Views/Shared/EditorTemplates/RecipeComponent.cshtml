@@ -33,6 +33,34 @@
         </div>
     </td>
 
+    <td>
+        <button type="button" data-recipecomponent-id="@Model.Id" class="btn btn-outline-danger js-delete"><i class="fas fa-trash"></i></button>
+    </td>
+
 </tr>
 
 
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#recipecomponents").on("click", ".js-delete", function () {
+                var button = $(this);
+                console.log("ok");
+
+                if (confirm("Êtes-vous certain de vouloir supprimer cet ingrédient ?")) {
+                    $.ajax({
+                        url: "/api/recipecomponents/" + button.attr("data-recipecomponent-id"),
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+
+
+    </script>
+
+}
