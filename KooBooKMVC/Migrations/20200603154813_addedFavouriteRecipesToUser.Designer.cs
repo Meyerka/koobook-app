@@ -4,14 +4,16 @@ using KooBooKMVC.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KooBooKMVC.Migrations
 {
     [DbContext(typeof(KoobookDbContext))]
-    partial class KoobookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200603154813_addedFavouriteRecipesToUser")]
+    partial class addedFavouriteRecipesToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,6 +60,9 @@ namespace KooBooKMVC.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -89,6 +94,8 @@ namespace KooBooKMVC.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.ToTable("Recipes");
                 });
 
@@ -118,21 +125,6 @@ namespace KooBooKMVC.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("RecipeComponents");
-                });
-
-            modelBuilder.Entity("KooBooKMVC.Models.UserRecipe", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RecipeId");
-
-                    b.HasIndex("RecipeId");
-
-                    b.ToTable("UserRecipe");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -350,6 +342,13 @@ namespace KooBooKMVC.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
+            modelBuilder.Entity("KooBooKMVC.Models.Recipe", b =>
+                {
+                    b.HasOne("KooBooKMVC.Models.ApplicationUser", null)
+                        .WithMany("FavouriteRecipes")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
             modelBuilder.Entity("KooBooKMVC.Models.RecipeComponent", b =>
                 {
                     b.HasOne("KooBooKMVC.Models.Ingredient", "Ingredient")
@@ -361,21 +360,6 @@ namespace KooBooKMVC.Migrations
                     b.HasOne("KooBooKMVC.Models.Recipe", "Recipe")
                         .WithMany("RecipeComponents")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("KooBooKMVC.Models.UserRecipe", b =>
-                {
-                    b.HasOne("KooBooKMVC.Models.Recipe", "Recipe")
-                        .WithMany()
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("KooBooKMVC.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("UserRecipes")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

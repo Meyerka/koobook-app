@@ -131,6 +131,29 @@ else
     </script>
 
 
+
+    <script>
+        $(document).ready(function () {
+            $("#recipecomponents").on("click", ".js-delete", function () {
+                var button = $(this);
+                console.log("ok");
+
+                if (confirm("Êtes-vous certain de vouloir supprimer cet ingrédient ?")) {
+                    $.ajax({
+                        url: "/api/recipecomponents/" + button.attr("data-recipecomponent-id"),
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+
+
+    </script>
+
+
 }
 
 

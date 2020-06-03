@@ -63,7 +63,7 @@ namespace KooBooKMVC.Controllers.Api
             var recipe = _mapper.Map<Recipe>(input);
             _recipeData.Add(recipe);
             _recipeData.Commit();
-            return Created(location,_mapper.Map<ApiRecipe>(recipe));
+            return Created(location, _mapper.Map<ApiRecipe>(recipe));
         }
 
         // PUT api/<controller>/5

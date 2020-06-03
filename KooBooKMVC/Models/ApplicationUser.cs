@@ -11,7 +11,7 @@ namespace KooBooKMVC.Models
         public DateTime RegistrationDate { get; set; }
         public string FullName { get; set; }
 
-
+        public ICollection<UserRecipe> UserRecipes { get; set; }
 
     }
 }
