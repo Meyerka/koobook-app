@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ImageProcessor;
 using ImageProcessor.Imaging;
@@ -26,14 +27,21 @@ namespace KooBooKMVC.Controllers
         private readonly IHtmlHelper _htmlHelper;
         private readonly IRecipeComponentData _recipeComponentData;
         private readonly IIngredientData _ingredientData;
+        private readonly IUserRecipeData _userRecipeData;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public RecipesController(IHtmlHelper htmlHelper, IRecipeData recipeData, IRecipeComponentData recipeComponentData, IIngredientData ingredientData, IWebHostEnvironment webHostEnvironment)
+        public RecipesController(   IHtmlHelper htmlHelper, 
+                                    IRecipeData recipeData, 
+                                    IRecipeComponentData recipeComponentData, 
+                                    IIngredientData ingredientData, 
+                                    IUserRecipeData userRecipeData,
+                                    IWebHostEnvironment webHostEnvironment)
         {
             _htmlHelper = htmlHelper;
             _recipeData = recipeData;
             _recipeComponentData = recipeComponentData;
             _ingredientData = ingredientData;
+            _userRecipeData = userRecipeData;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -228,6 +236,20 @@ namespace KooBooKMVC.Controllers
                     HttpContext.Session.SetObject("GroceryList", sessionList);
                 }
             }
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public IActionResult AddToFavourites(int recipeId)
+        {
+            var userRecipe = new UserRecipe
+            {
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+,
+                RecipeId = recipeId
+            };
+            _userRecipeData.Add(userRecipe);
+            _userRecipeData.Commit();
             return RedirectToAction(nameof(Index));
         }
 

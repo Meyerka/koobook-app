@@ -3,7 +3,7 @@
     ViewData["Title"] = "Detail";
 }
 
-    <div @*class="jumbotron" id="jumborecipe"*@>
+    <div>
         <h1 class="display-3">@Model.Recipe.Name</h1>
         <h5>@Model.Recipe.Type</h5>
 
@@ -31,6 +31,8 @@
             <a class="btn btn-primary btn-lg" href="#" role="button">Ajouter à ma liste</a>
         </p>
     </div>
+
+    <a asp-action="AddToFavourites" asp-route-recipeId="@Model.Recipe.Id">Add to list bkoefkfze</a>
 
 
 

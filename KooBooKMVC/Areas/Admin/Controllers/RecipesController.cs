@@ -23,13 +23,21 @@ namespace KooBooKMVC.Areas.Admin
         private readonly IHtmlHelper _htmlHelper;
         private readonly IRecipeComponentData _recipeComponentData;
         private readonly IIngredientData _ingredientData;
+        private readonly IUserRecipeData _userRecipeData;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public RecipesController(IHtmlHelper htmlHelper, IRecipeData recipeData, IRecipeComponentData recipeComponentData, IIngredientData ingredientData, IWebHostEnvironment webHostEnvironment)
+
+        public RecipesController(IHtmlHelper htmlHelper,
+                                    IRecipeData recipeData,
+                                    IRecipeComponentData recipeComponentData,
+                                    IIngredientData ingredientData,
+                                    IUserRecipeData userRecipeData,
+                                    IWebHostEnvironment webHostEnvironment)
         {
             _htmlHelper = htmlHelper;
             _recipeData = recipeData;
             _recipeComponentData = recipeComponentData;
             _ingredientData = ingredientData;
+            _userRecipeData = userRecipeData;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -38,12 +46,10 @@ namespace KooBooKMVC.Areas.Admin
         {
             var recipes = _recipeData.GetRecipeByName("").ToList();
 
-
             if (!page.HasValue)
             {
                 page = 1;
             }
-
 
             if (string.IsNullOrWhiteSpace(sortBy))
             {
@@ -187,9 +193,8 @@ namespace KooBooKMVC.Areas.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task<ActionResult> AddRecipeComponent([Bind("Id, Name,Type,Instructions,RecipeComponents")] Recipe recipe)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+
         {
 
 
@@ -198,5 +203,8 @@ namespace KooBooKMVC.Areas.Admin
             //_recipeData.Commit();
             return PartialView("RecipeComponent", recipe);
         }
+
+
+
     }
 }

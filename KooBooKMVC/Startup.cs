@@ -45,6 +45,7 @@ namespace KooBooKMVC
             services.AddScoped<IRecipeData, SqlRecipeData>();
             services.AddScoped<IIngredientData, SqlIngredientData>();
             services.AddScoped<IRecipeComponentData, SqlRecipeComponentData>();
+            services.AddScoped<IUserRecipeData, SqlUserRecipeData>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddSession(options =>
