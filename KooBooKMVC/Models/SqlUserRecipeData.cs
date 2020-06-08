@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,14 +36,10 @@ namespace KooBooKMVC.Models
             return userRecipe;
         }
 
-        public UserRecipe GetUserRecipeById(int id)
-        {
-            return _db.UserRecipe.Find(id);
-        }
 
         public IEnumerable<UserRecipe> GetUserRecipesById(string id)
         {
-            return _db.UserRecipe.Where(ur => ur.UserId == id);
+            return _db.UserRecipe.Include(ur => ur.Recipe).Where(ur => ur.UserId == id);
         }
     }
 }

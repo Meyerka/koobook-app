@@ -1,0 +1,12 @@
+﻿@model List<KooBooKMVC.Models.UserRecipe>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Mes favoris</h1>
+
+@foreach (var userRecipe in Model)
+	{
+		 <h2> @userRecipe.Recipe.Name </h2>
+	}

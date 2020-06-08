@@ -11,7 +11,6 @@ namespace KooBooKMVC.Models
         UserRecipe Delete(int id);
 
         IEnumerable<UserRecipe> GetUserRecipesById(string id);
-        UserRecipe GetUserRecipeById(int id);
 
         int Commit();
     }

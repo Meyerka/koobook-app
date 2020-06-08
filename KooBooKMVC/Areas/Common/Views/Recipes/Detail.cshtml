@@ -6,12 +6,18 @@
     <div>
         <h1 class="display-3">@Model.Recipe.Name</h1>
         <h5>@Model.Recipe.Type</h5>
-
-        <div>
-            <span class="badge badge-info" style="margin-bottom: 10px">@Model.Recipe.PrepTime minutes</span>
-            <span class="badge badge-info" style="margin-bottom: 10px">@Model.Recipe.Servings personnes</span>
+        <div class="m-3">
+            <a class="btn btn-primary mb-3 float-right"
+               asp-action="AddToFavourites"
+               asp-route-recipeId="@Model.Recipe.Id">
+                <i class="fab fa-gratipay"></i>
+            </a>
         </div>
-        <div class="list-group">
+        <div class="mb-3">
+            <span class="badge badge-info" style="margin-bottom: 10px">@Model.Recipe.PrepTime minutes</span>
+            <span class="badge badge-info" style="margin-bottom: 10px">@Model.Recipe.Servings pSersonnes</span>
+        </div>
+        <div class="list-group mb-3">
             @foreach (var component in Model.Recipe.RecipeComponents)
             {
                 <a href="#" class="list-group-item list-group-item-action">
@@ -27,12 +33,9 @@
         }
         <hr class="my-4">
         <p>@Html.Raw(@Model.Recipe.Instructions)</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Ajouter à ma liste</a>
-        </p>
+
     </div>
 
-    <a asp-action="AddToFavourites" asp-route-recipeId="@Model.Recipe.Id">Add to list bkoefkfze</a>
 
 
 
